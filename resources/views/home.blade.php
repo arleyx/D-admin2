@@ -12,6 +12,6 @@
                 <a href="{{ url('/login') }}" class="btn btn-primary btn-lg btn-block">Sign in</a>
             </div>
         </div>
-        <a href="{{ route('about-beering') }}" class="btn btn-link">No account? Create one!</a>
+        <a href="{{ url('/about-beering') }}" class="btn btn-link">No account? Create one!</a>
     </div>
 @endsection

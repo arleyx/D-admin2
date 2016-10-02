@@ -16,7 +16,6 @@ class CreateGroupsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('beering_id')->unsigned();
-            $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('beering_id')->references('id')->on('beerings');

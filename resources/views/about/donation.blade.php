@@ -1,4 +1,4 @@
-@extends('template.main')
+@extends('layouts.main')
 
 @section('title', 'About Donation')
 
@@ -30,6 +30,6 @@
     <p>&nbsp;</p>
 
     <div class="container text-right">
-        <a href="{{ route('register') }}" class="btn btn-link btn-lg">Skip &raquo;</a>
+        <a href="{{ url('/register') }}" class="btn btn-link btn-lg">Skip &raquo;</a>
     </div>
 @endsection

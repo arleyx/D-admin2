@@ -11,29 +11,24 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'DonationsController@home');
 
-Route::auth();
 
 /*
- |
- | ADMIN LOGIN
- |
+ |--------------------------------------------------------------------------
+ | Admin login
+ |--------------------------------------------------------------------------
  */
 
-// Authentication Routes...
 Route::get('admin/login', 'AdministratorsController@showLoginForm');
 Route::post('admin/login', 'AdministratorsController@login');
 Route::get('admin/logout', 'AdministratorsController@logout');
 
-// Password Reset Routes...
 // Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
 // Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
 // Route::post('password/reset', 'Auth\PasswordController@reset');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrators'], function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get('', function () {
         return redirect('admin/login');
     });
@@ -41,15 +36,22 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrators'], funct
     Route::get('dashboard', 'AdministratorsController@admin');
 });
 
-/*
- |
- | ABOUT BEERING AND DONATIONS
- |
- */
-Route::get('/about-beering', ['uses' => function () {
-    return view('about.beering');
-}, 'as' => 'about-beering']);
 
-Route::get('/about-donation', ['uses' => function () {
-    return view('about.donation');
-}, 'as' => 'about-donation']);
+/*
+ |--------------------------------------------------------------------------
+ | Users login
+ |--------------------------------------------------------------------------
+ */
+
+Route::auth();
+
+
+/*
+ |--------------------------------------------------------------------------
+ | About Beering and Donations
+ |--------------------------------------------------------------------------
+ */
+
+Route::get('/about-beering', 'DonationsController@aboutBeering');
+Route::get('/about-donation', 'DonationsController@aboutDonation');
+Route::get('/donate', 'DonationsController@donate');

@@ -13,9 +13,9 @@ class Group extends Model
     /**
      * Get the comments for the blog post.
      */
-    public function donors()
+    public function users()
     {
-        return $this->hasMany('App\Donor');
+        return $this->hasMany('App\User');
     }
 
     /**

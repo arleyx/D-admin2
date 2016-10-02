@@ -1,22 +1,36 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url('/admin/dashboard') }}">D-admin</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>
+<header class="main-header">
+    <a href="{{ url('/admin/dashboard') }}" class="logo">
+        <span class="logo-mini"><strong>DPF</strong></span>
+        <span class="logo-lg"><strong>D</strong>-admin</span>
+    </a>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth('administrators')->user()->name }} <span class="caret"></span></a>
+    <nav class="navbar navbar-static-top" role="navigation">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="{{ asset('images/user.png') }}" class="user-image" alt="User Image">
+                        <span class="hidden-xs">{{ auth('administrators')->user()->name }}</span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/admin/logout') }}">Log out</a></li>
+                        <li class="user-header">
+                            <img src="{{ asset('images/user.png') }}" class="img-circle" alt="User Image">
+                            <p>
+                                {{ auth('administrators')->user()->name }}
+                                <small>Member since {{ date_format(date_create(auth('administrators')->user()->created_at), 'M. Y') }}</small>
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div>
+                                <a href="{{ url('/admin/logout') }}" class="btn btn-default btn-block btn-flat">Sign out</a>
+                            </div>
+                        </li>
                     </ul>
                 </li>
             </ul>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>
