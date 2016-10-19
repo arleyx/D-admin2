@@ -6,11 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Action extends Model
 {
-    protected $table = 'actions';
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['name'];
 
+    /**
+     * Get the modules for the actions.
+     */
     public function modules () {
-        return $this->belongsToMany('App\Module')->withTimestamps();
+        return $this->belongsToMany('App\Module', 'permissions')->withTimestamps();
     }
 }

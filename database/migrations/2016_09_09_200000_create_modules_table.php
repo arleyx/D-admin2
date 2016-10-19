@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActionsTable extends Migration
+class CreateModulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,11 @@ class CreateActionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('actions', function (Blueprint $table) {
+        Schema::create('modules', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
-
-        DB::table('actions')->insert(['name' => 'create']);
-        DB::table('actions')->insert(['name' => 'read']);
-        DB::table('actions')->insert(['name' => 'update']);
-        DB::table('actions')->insert(['name' => 'delete']);
     }
 
     /**
@@ -31,6 +26,6 @@ class CreateActionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('actions');
+        Schema::drop('modules');
     }
 }

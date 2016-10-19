@@ -26,6 +26,16 @@ class Authenticate
             }
         }
 
+        if ($guard === 'administrators') {
+            $modules = Auth::guard($guard)
+                            ->user()
+                            ->role()->getResults()
+                            ->modules();
+
+            if (!isset($request->dataConfig)) $request->dataConfig = [];
+            $request->dataConfig['modules'] = $modules;
+        }
+
         return $next($request);
     }
 }

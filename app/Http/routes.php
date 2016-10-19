@@ -28,12 +28,21 @@ Route::get('admin/logout', 'AdministratorsController@logout');
 // Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
 // Route::post('password/reset', 'Auth\PasswordController@reset');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrators'], function () {
     Route::get('', function () {
         return redirect('admin/login');
     });
 
-    Route::get('dashboard', 'AdministratorsController@admin');
+    Route::get('dashboard', 'AdministratorsController@dashboard');
+
+    Route::resource('roles', 'RolesController');
+    //Route::get('profiles/{id}/destroy', 'ProfilesController@destroy');
+
+
+    Route::resource('users', 'UsersController');
+    //Route::get('users/{id}/destroy', 'UsersController@destroy');
+    //Route::resource('profiles', 'ProfilesController');
+    //Route::resource('profiles', 'ProfilesController');
 });
 
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminTable extends Migration
+class CreateAdministratorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,19 +17,12 @@ class CreateAdminTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->integer('profile_id')->unsigned();
+            $table->integer('role_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('profile_id')->references('id')->on('profiles');
+            $table->foreign('role_id')->references('id')->on('roles');
         });
-
-        DB::table('users')->insert([
-            'name' => 'Administrator',
-            'email' => 'admin@dpfcolombia.com',
-            'password' => bcrypt('1234567890'),
-            'profile_id' => 1
-        ]);
     }
 
     /**

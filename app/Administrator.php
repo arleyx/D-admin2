@@ -24,7 +24,10 @@ class Administrator extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function profile () {
-        return $this->belongsTo('App\Profile');
+    /**
+     * Get the role for the user.
+     */
+    public function role () {
+        return $this->belongsTo('App\Role');
     }
 }

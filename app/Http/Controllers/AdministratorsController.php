@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use App\Module;
 use App\Http\Requests;
 
 class AdministratorsController extends Controller
@@ -15,17 +16,22 @@ class AdministratorsController extends Controller
 
     protected $guard = 'administrators';
 
-    protected $redirectTo = '/admin/dasboard';
+    protected $redirectTo = '/admin/dashboard';
 
     protected $redirectAfterLogout = '/admin/login';
 
     public function __construct()
     {
-        $this->middleware('auth:administrators', ['only' => 'admin']);
+        $this->middleware('profile:dashboard', ['only' => 'dashboard']);
     }
 
-    public function admin()
+    public function dashboard(Request $request)
     {
-        return view('admin.dashboard');
+        return view('admin.dashboard', [
+            'dataConfig' => [
+                'modules'   => $request->dataConfig['modules'],
+                'module'    => $request->dataConfig['module'],
+            ]
+        ]);
     }
 }

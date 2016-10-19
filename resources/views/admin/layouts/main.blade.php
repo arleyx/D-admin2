@@ -4,14 +4,10 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>@yield('title')</title>
-        <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
         <link rel="stylesheet" href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="{{ asset('css/skins/skin-blue.min.css') }}" media="screen" charset="utf-8"/>
-        <style media="screen">
-            html, body {font-family: 'Noto Sans', sans-serif;}
-        </style>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -21,6 +17,19 @@
             @endif
 
             <div class="content-wrapper">
+                @if ($dataConfig['module']->id > 1)
+                    <section class="content-header">
+                        <h1>
+                            {{ trans($dataConfig['module']->name.'.title') }}
+                            <small>{{ trans($dataConfig['module']->name.'.description') }}</small>
+                        </h1>
+                        {{-- <ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> {{ trans($dataConfig['module']->name.'.title') }}</a></li>
+                            <li class="active">{{ trans($dataConfig['module']->name.'.'.$action->name.'.title') }}</li>
+                        </ol> --}}
+                    </section>
+                @endif
+
                 @yield('content')
             </div>
 
