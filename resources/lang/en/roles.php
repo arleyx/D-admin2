@@ -25,12 +25,6 @@ return [
             'module' => 'Modules',
             'action' => 'Action',
         ],
-        'modal' => [
-            'title' => 'Alert Destroy',
-            'description' => 'Are you sure to delete this profile?',
-            'yes' => 'Yes',
-            'no' => 'No',
-        ],
         'action' => [
             'create' => 'Create',
             'edit' => 'Edit',

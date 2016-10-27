@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Action;
 use App\Module;
-use App\Profile;
+use App\Permission;
+use App\Role;
 use App\Http\Requests;
 
 class RolesController extends Controller
@@ -16,8 +17,9 @@ class RolesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('allow:'.$this->module_name.',index', ['only' => 'index']);
+        $this->middleware('allow:'.$this->module_name.',index',  ['only' => 'index']);
         $this->middleware('allow:'.$this->module_name.',create', ['only' => 'create']);
+        $this->middleware('allow:'.$this->module_name.',edit',   ['only' => 'edit']);
     }
 
     /**
@@ -25,18 +27,18 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $profiles = Profile::all();
+        $roles = Role::all();
 
-        return view('admin.profiles.index', [
+        return view('admin.roles.index', [
             'dataConfig' => [
-                'action'    => $request->dataConfig['action'],
-                'module'    => $request->dataConfig['module'],
-                'modules'   => $request->dataConfig['modules'],
+                'action'    => request()->dataConfig['action'],
+                'module'    => request()->dataConfig['module'],
+                'modules'   => request()->dataConfig['modules'],
             ],
             'data' => [
-                'profiles'  => $profiles,
+                'roles'  => $roles,
             ],
         ]);
     }
@@ -46,15 +48,15 @@ class RolesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $modules = Module::all();
 
         return view('admin.roles.create', [
             'dataConfig' => [
-                'action'    => $request->dataConfig['action'],
-                'module'    => $request->dataConfig['module'],
-                'modules'   => $request->dataConfig['modules'],
+                'action'    => request()->dataConfig['action'],
+                'module'    => request()->dataConfig['module'],
+                'modules'   => request()->dataConfig['modules'],
             ],
             'data' => [
                 'modules' => $modules
@@ -70,19 +72,21 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        $profile = new Profile;
-        $profile->name = $request->name;
-        $profile->save();
+        $role = new Role;
+        $role->name = $request->name;
+        $role->save();
 
-        foreach ($request->modules as $module_id => $actions) {
-            $module = Module::find($module_id);
+        foreach ($request->permissions as $module_id => $actions) {
             foreach ($actions as $action_id) {
-                $action = Action::find($action_id);
-                $profile->modules()->attach($module->id, ['action_id' => $action->id]);
+                $permission = Permission::where('module_id', $module_id)
+                                        ->where('action_id', $action_id)->first();
+                $role->permissions()->attach($permission);
             }
         }
 
-        dd($request->all());
+        session()->flash('alert.success', collect([trans('alert.status.create')]));
+
+        return redirect()->route('admin.roles.index');
     }
 
     /**
@@ -127,6 +131,12 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        return dd($id);
+        session()->flash('alert.success', collect([trans('alert.status.delete')]));
+
+        $role = Role::find($id);
+        $role->permissions()->detach();
+        $role->delete();
+
+        return redirect()->route('admin.roles.index');
     }
 }

@@ -23,22 +23,27 @@
                             {{ trans($dataConfig['module']->name.'.title') }}
                             <small>{{ trans($dataConfig['module']->name.'.description') }}</small>
                         </h1>
-                        {{-- <ol class="breadcrumb">
+                        <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> {{ trans($dataConfig['module']->name.'.title') }}</a></li>
-                            <li class="active">{{ trans($dataConfig['module']->name.'.'.$action->name.'.title') }}</li>
-                        </ol> --}}
+                            <li class="active">{{ trans($dataConfig['module']->name.'.'.$dataConfig['action']->name.'.title') }}</li>
+                        </ol>
                     </section>
                 @endif
 
-                @yield('content')
+                <section class="content">
+                    @include('admin.layouts.alert')
+                    @yield('content')
+                </section>
             </div>
 
             <footer class="main-footer">
                 <strong>Copyright &copy; 2016 <a href="#">DPF Colombia</a>.</strong> All rights reserved.
             </footer>
         </div>
+
+        <script type="text/javascript" src="{{ asset('libs/jquery/js/jquery-1.12.4.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('libs/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/app.min.js') }}"></script>
+        @stack('scripts')
     </body>
-    <script type="text/javascript" src="{{ asset('libs/jquery/js/jquery-1.12.4.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('libs/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/app.min.js') }}"></script>
 </html>
