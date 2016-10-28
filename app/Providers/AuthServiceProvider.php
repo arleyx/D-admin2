@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Permission;
+
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -27,8 +29,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         foreach ($this->getPermissions() as $permission) {
-            $gate->define($permission->action()->name.'-'.$permission->module()->name, function($user, $module, action) {
-                
+            $gate->define($permission->action()->name.'-'.$permission->module()->name, function($administrator, $module, $action) {
+                return $administrator->role()->getResults()
+                                     ->permissions()
+                                     ->where('module_id', $module->id)
+                                     ->where('action_id', $action->id)->count() > 0;
             });
         }
     }

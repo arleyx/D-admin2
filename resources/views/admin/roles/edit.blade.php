@@ -3,19 +3,20 @@
 @section('title', trans($app_module->name.'.title'))
 
 @section('content')
-    <div class="box box-success">
+    <div class="box box-warning">
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans($app_module->name.'.'.$app_action->name.'.title') }}</h3>
         </div>
-        <form action="{{ route('admin.'.$app_module->name.'.store') }}" role="form" method="POST">
+        <form action="{{ route('admin.'.$app_module->name.'.update', $data['role']->id) }}" role="form" method="POST">
             {!! csrf_field() !!}
+            {{ method_field('PUT') }}
 
             <div class="box-body">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">{{ trans($app_module->name.'.'.$app_action->name.'.form.name.field') }}</label>
-                            <input class="form-control" id="name" name="name" placeholder="{{ trans($app_module->name.'.'.$app_action->name.'.form.name.placeholder') }}" type="text"/>
+                            <input class="form-control" id="name" name="name" placeholder="{{ trans($app_module->name.'.'.$app_action->name.'.form.name.placeholder') }}" type="text" value="{{ $data['role']->name }}"/>
                         </div>
                     </div>
                 </div>
@@ -39,7 +40,7 @@
                                     <td>
                                         <select multiple class="form-control" name="permissions[{{ $module->id }}][]">
                                             @foreach ($module->actions()->getResults() as $action)
-                                                <option value="{{ $action->id }}">{{ $action->name }}</option>
+                                                <option {{ $data['role']->permissions()->where('module_id', $module->id)->where('action_id', $action->id)->count() > 0 ? 'selected' : '' }} value="{{ $action->id }}">{{ $action->name }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -50,7 +51,7 @@
                 </div>
             </div>
             <div class="box-footer">
-                <button type="submit" class="btn btn-success">{{ trans($app_module->name.'.'.$app_action->name.'.form.submit') }}</button>
+                <button type="submit" class="btn btn-warning">{{ trans($app_module->name.'.'.$app_action->name.'.form.submit') }}</button>
             </div>
         </form>
     </div>

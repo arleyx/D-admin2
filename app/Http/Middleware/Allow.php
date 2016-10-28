@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use Gate;
+use Auth;
 use Closure;
 
+use App\Permission;
 use App\Module;
 use App\Action;
 
@@ -18,16 +21,16 @@ class Allow
      */
     public function handle($request, Closure $next, $module_name = '', $action_name = '')
     {
-        if (!isset($request->dataConfig)) $request->dataConfig = [];
 
-        if ($module_name === 'dashboard') {
-            $request->dataConfig['module'] = new Module;
-            $request->dataConfig['module']->id = 0;
-            $request->dataConfig['module']->name = 'dashboard';
-        } else {
-            $request->dataConfig['module'] = Module::where('name', $module_name)->first();
-            $request->dataConfig['action'] = Action::where('name', $action_name)->first();
-        }
+        $module = Module::where('name', $module_name)->first();
+        $action = Action::where('name', $action_name)->first();
+
+        if ($request->user('administrators')->cannot($action_name.'-'.$module_name, [$module, $action]))
+            abort(403);
+
+        view()->share('app_module', $module);
+        view()->share('app_action', $action);
+
         return $next($request);
     }
 }

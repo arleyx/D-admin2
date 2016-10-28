@@ -13,13 +13,13 @@ use App\Http\Requests;
 class RolesController extends Controller
 {
 
-    protected $module_name = 'roles';
+    protected $controller = 'roles';
 
     public function __construct()
     {
-        $this->middleware('allow:'.$this->module_name.',index',  ['only' => 'index']);
-        $this->middleware('allow:'.$this->module_name.',create', ['only' => 'create']);
-        $this->middleware('allow:'.$this->module_name.',edit',   ['only' => 'edit']);
+        $this->middleware('allow:'.$this->controller.',index',  ['only' => ['index']]);
+        $this->middleware('allow:'.$this->controller.',create', ['only' => ['create', 'store']]);
+        $this->middleware('allow:'.$this->controller.',edit',   ['only' => ['edit', 'update']]);
     }
 
     /**
@@ -32,11 +32,6 @@ class RolesController extends Controller
         $roles = Role::all();
 
         return view('admin.roles.index', [
-            'dataConfig' => [
-                'action'    => request()->dataConfig['action'],
-                'module'    => request()->dataConfig['module'],
-                'modules'   => request()->dataConfig['modules'],
-            ],
             'data' => [
                 'roles'  => $roles,
             ],
@@ -53,11 +48,6 @@ class RolesController extends Controller
         $modules = Module::all();
 
         return view('admin.roles.create', [
-            'dataConfig' => [
-                'action'    => request()->dataConfig['action'],
-                'module'    => request()->dataConfig['module'],
-                'modules'   => request()->dataConfig['modules'],
-            ],
             'data' => [
                 'modules' => $modules
             ],
@@ -108,7 +98,15 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        return dd(Profile::find($id));
+        $role = Role::find($id);
+        $modules = Module::all();
+
+        return view('admin.roles.edit', [
+            'data' => [
+                'role'    => $role,
+                'modules' => $modules
+            ],
+        ]);
     }
 
     /**
@@ -120,7 +118,23 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role = Role::find($id);
+        $role->name = $request->name;
+        $role->save();
+
+        $role->permissions()->detach();
+
+        foreach ($request->permissions as $module_id => $actions) {
+            foreach ($actions as $action_id) {
+                $permission = Permission::where('module_id', $module_id)
+                                        ->where('action_id', $action_id)->first();
+                $role->permissions()->attach($permission);
+            }
+        }
+
+        session()->flash('alert.success', collect([trans('alert.status.edit')]));
+
+        return redirect()->route('admin.roles.index');
     }
 
     /**

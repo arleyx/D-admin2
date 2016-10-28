@@ -22,16 +22,11 @@ class AdministratorsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('profile:dashboard', ['only' => 'dashboard']);
+        $this->middleware('allow:dashboard', ['only' => 'dashboard']);
     }
 
     public function dashboard(Request $request)
     {
-        return view('admin.dashboard', [
-            'dataConfig' => [
-                'modules'   => $request->dataConfig['modules'],
-                'module'    => $request->dataConfig['module'],
-            ]
-        ]);
+        return view('admin.dashboard');
     }
 }

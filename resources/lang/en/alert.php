@@ -32,6 +32,7 @@ return [
 
     'status' => [
         'create' => 'Item has created',
+        'edit' => 'Item has edited',
         'delete' => 'Item was removed',
     ],
 ];

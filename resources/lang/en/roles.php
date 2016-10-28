@@ -45,4 +45,17 @@ return [
         ],
     ],
 
+    'edit' => [
+        'title' => 'Edit',
+        'form' => [
+            'name' => ['field' => 'Name', 'placeholder' => 'Enter Name'],
+            'submit' => 'Submit',
+        ],
+        'table' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'action' => 'Action',
+        ],
+    ],
+
 ];

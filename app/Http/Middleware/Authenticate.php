@@ -32,8 +32,7 @@ class Authenticate
                             ->role()->getResults()
                             ->modules();
 
-            if (!isset($request->dataConfig)) $request->dataConfig = [];
-            $request->dataConfig['modules'] = $modules;
+            view()->share('app_modules', $modules);
         }
 
         return $next($request);

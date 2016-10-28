@@ -14,7 +14,7 @@ class ActionsTableSeeder extends Seeder
         DB::table('actions')->insert(['name' => 'index']);
         DB::table('actions')->insert(['name' => 'create']);
         DB::table('actions')->insert(['name' => 'show']);
-        DB::table('actions')->insert(['name' => 'update']);
+        DB::table('actions')->insert(['name' => 'edit']);
         DB::table('actions')->insert(['name' => 'delete']);
     }
 }
