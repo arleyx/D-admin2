@@ -30,6 +30,7 @@ return [
             'edit' => 'Edit',
             'destroy' => 'Delete',
         ],
+        'pagination' => 'Showing :firstItem to :lastItem of :total entries'
     ],
 
     'create' => [

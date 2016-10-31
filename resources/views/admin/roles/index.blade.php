@@ -9,8 +9,8 @@
         <div class="box-header with-border">
             <h3 class="box-title">{{ trans($app_module->name.'.'.$app_action->name.'.title') }}</h3>
         </div>
-        <div class="box-body table-responsive">
-            <table class="table table-bordered table-hover">
+        <div class="box-body">
+            <table class="table table-bordered table-hover datatable">
                 <thead>
                     <tr>
                         <th width="50">{{ trans($app_module->name.'.'.$app_action->name.'.table.id') }}</th>
@@ -40,6 +40,8 @@
                 </tbody>
             </table>
             @include('admin.layouts.modal.delete')
+            @include('admin.layouts.pagination', ['result' => $data['roles']])
+            @include('admin.layouts.datatable', ['noactions' => [1, 3, 4]])
         </div>
     </div>
 @endsection

@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrators'], funct
         return redirect('admin/login');
     });
 
-    Route::get('dashboard', 'AdministratorsController@dashboard');
+    Route::get('init', 'AdministratorsController@init');
 
     Route::resource('roles', 'RolesController');
     //Route::get('profiles/{id}/destroy', 'ProfilesController@destroy');

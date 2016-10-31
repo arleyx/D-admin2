@@ -3,11 +3,13 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        @stack('metas')
         <title>@yield('title')</title>
         <link rel="stylesheet" href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="{{ asset('css/skins/skin-blue.min.css') }}" media="screen" charset="utf-8"/>
+        @stack('links')
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">

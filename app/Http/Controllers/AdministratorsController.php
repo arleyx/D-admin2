@@ -16,17 +16,17 @@ class AdministratorsController extends Controller
 
     protected $guard = 'administrators';
 
-    protected $redirectTo = '/admin/dashboard';
+    protected $redirectTo = '/admin/init';
 
     protected $redirectAfterLogout = '/admin/login';
 
     public function __construct()
     {
-        $this->middleware('allow:dashboard', ['only' => 'dashboard']);
+        $this->middleware('allow:init,show', ['only' => 'init']);
     }
 
-    public function dashboard(Request $request)
+    public function init(Request $request)
     {
-        return view('admin.dashboard');
+        return view('admin.init');
     }
 }
