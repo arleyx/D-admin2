@@ -29,6 +29,10 @@ return [
         'title' => 'Danger!',
     ],
 
+    'error' => [
+        'title' => 'Error!',
+    ],
+
 
     'status' => [
         'create' => 'Item has created',

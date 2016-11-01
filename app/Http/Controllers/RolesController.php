@@ -62,6 +62,11 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name|min:3|max:100',
+            'permissions' => 'required',
+        ]);
+
         $role = new Role;
         $role->name = $request->name;
         $role->save();
@@ -118,6 +123,11 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name,'.$id.'|min:3|max:100',
+            'permissions' => 'required',
+        ]);
+
         $role = Role::find($id);
         $role->name = $request->name;
         $role->save();

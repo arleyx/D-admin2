@@ -22,12 +22,12 @@
                 @if ($app_module->id > 1)
                     <section class="content-header">
                         <h1>
-                            {{ trans($app_module->name.'.title') }}
-                            <small>{{ trans($app_module->name.'.description') }}</small>
+                            @lang($app_module->name.'.title')
+                            <small>@lang($app_module->name.'.description')</small>
                         </h1>
                         <ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> {{ trans($app_module->name.'.title') }}</a></li>
-                            <li class="active">{{ trans($app_module->name.'.'.$app_action->name.'.title') }}</li>
+                            <li><a href="#"><i class="fa fa-dashboard"></i> @lang($app_module->name.'.title')</a></li>
+                            <li class="active">@lang($app_module->name.'.'.$app_action->name.'.title')</li>
                         </ol>
                     </section>
                 @endif
