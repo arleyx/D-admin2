@@ -14,12 +14,19 @@ class RolesController extends Controller
 {
 
     protected $controller = 'roles';
+    protected $views = [];
 
     public function __construct()
     {
         $this->middleware('allow:'.$this->controller.',index',  ['only' => ['index']]);
         $this->middleware('allow:'.$this->controller.',create', ['only' => ['create', 'store']]);
         $this->middleware('allow:'.$this->controller.',edit',   ['only' => ['edit', 'update']]);
+
+        $this->views = [
+            'index'  => 'admin.'.$this->controller.'.index',
+            'create' => 'admin.'.$this->controller.'.create',
+            'edit'   => 'admin.'.$this->controller.'.edit',
+        ];
     }
 
     /**
@@ -31,7 +38,7 @@ class RolesController extends Controller
     {
         $roles = Role::paginate(25);
 
-        return view('admin.roles.index', [
+        return view($this->views['index'], [
             'data' => [
                 'roles'  => $roles,
             ],
@@ -47,7 +54,7 @@ class RolesController extends Controller
     {
         $modules = Module::all();
 
-        return view('admin.roles.create', [
+        return view($this->views['create'], [
             'data' => [
                 'modules' => $modules
             ],
@@ -81,7 +88,7 @@ class RolesController extends Controller
 
         session()->flash('alert.success', collect([trans('alert.status.create')]));
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route($this->views['index']);
     }
 
     /**
@@ -106,7 +113,7 @@ class RolesController extends Controller
         $role = Role::find($id);
         $modules = Module::all();
 
-        return view('admin.roles.edit', [
+        return view($this->views['edit'], [
             'data' => [
                 'role'    => $role,
                 'modules' => $modules
@@ -144,7 +151,7 @@ class RolesController extends Controller
 
         session()->flash('alert.success', collect([trans('alert.status.edit')]));
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route($this->views['index']);
     }
 
     /**
@@ -161,6 +168,6 @@ class RolesController extends Controller
         $role->permissions()->detach();
         $role->delete();
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route($this->views['index']);
     }
 }

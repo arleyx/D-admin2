@@ -19,7 +19,7 @@
             @endif
 
             <div class="content-wrapper">
-                @if ($app_module->id > 1)
+                @if ($app_module->id > 0)
                     <section class="content-header">
                         <h1>
                             @lang($app_module->name.'.title')

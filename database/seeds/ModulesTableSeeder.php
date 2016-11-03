@@ -11,7 +11,7 @@ class ModulesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('modules')->insert(['name' => 'users']);
+        DB::table('modules')->insert(['name' => 'administrators']);
         DB::table('modules')->insert(['name' => 'roles']);
     }
 }
