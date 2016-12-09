@@ -1,8 +1,29 @@
 body {
+    background-color: #F8ECBE;
     font-family: 'Noto Sans', sans-serif;
-    padding: 50px 0px;
 }
 
 fieldset {
     padding: 10px;
+}
+
+#d-header {
+    background: -webkit-gradient(linear, center top, center bottom, from(#403924), color-stop(100%, #282416));
+    background: -webkit-linear-gradient(top,#403924 ,#282416 100%);
+    background: linear-gradient(to bottom,#403924 ,#282416 100%);
+    border-bottom: 5px solid #607B24;
+    margin-bottom: 50px;
+    text-align: center;
+}
+#d-header nav {
+    display: inline-block;
+}
+#d-header nav a {
+    color: #FFFFFF;
+    display: inline-block;
+    padding: 10px 20px;
+}
+#d-header img {
+    display: inline-block;
+    margin: 10px 10px -55px;
 }

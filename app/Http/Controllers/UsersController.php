@@ -4,10 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\User;
 use App\Http\Requests;
 
 class UsersController extends Controller
 {
+    protected $controller = 'users';
+    protected $views = [];
+
+    public function __construct()
+    {
+        $this->middleware('allow:'.$this->controller.',index',  ['only' => ['index']]);
+        $this->middleware('allow:'.$this->controller.',edit',   ['only' => ['edit', 'update']]);
+
+        $this->views = [
+            'index'  => 'admin.'.$this->controller.'.index',
+            'create' => 'admin.'.$this->controller.'.create',
+            'edit'   => 'admin.'.$this->controller.'.edit',
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +31,13 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate(25);
+
+        return view($this->views['index'], [
+            'data' => [
+                'users'  => $users,
+            ],
+        ]);
     }
 
     /**
@@ -25,7 +47,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -36,7 +58,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

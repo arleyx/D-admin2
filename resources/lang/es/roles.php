@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Language for users module
+    | Language for profile module
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -22,9 +22,8 @@ return [
             'id' => 'ID',
             'create_at' => 'Create at',
             'name' => 'Name',
-            'email' => 'E-mail',
-            'group' => 'Group',
-            'action' => 'Actions',
+            'module' => 'Modules',
+            'action' => 'Action',
         ],
         'action' => [
             'create' => 'Create',
@@ -35,14 +34,7 @@ return [
     ],
 
     'create' => [
-        'name' => ['field' => 'Name', 'placeholder' => 'Enter Name'],
-        'lastname' => ['field' => 'Last Name', 'placeholder' => 'Enter Last Name'],
-        'email' => ['field' => 'Email', 'placeholder' => 'Enter Email'],
-        'phone' => ['field' => 'Phone', 'placeholder' => 'Enter Phone'],
-        'password' => ['field' => 'Password', 'placeholder' => 'Enter Password'],
-        'password_confirmation' => ['field' => 'Confirm Password', 'placeholder' => 'Enter Confirm Password'],
-        'group_id' => ['field' => 'Group', 'placeholder' => 'Select Group'],
-        /*'title' => 'Create',
+        'title' => 'Create',
         'form' => [
             'name' => ['field' => 'Name', 'placeholder' => 'Enter Name'],
             'submit' => 'Submit',
@@ -51,7 +43,7 @@ return [
             'id' => 'ID',
             'name' => 'Name',
             'action' => 'Action',
-        ],*/
+        ],
     ],
 
     'edit' => [
@@ -66,4 +58,5 @@ return [
             'action' => 'Action',
         ],
     ],
+
 ];

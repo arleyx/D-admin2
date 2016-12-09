@@ -1,19 +1,19 @@
-<header>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">BeeringHoney</a>
-            </div>
-            @if (auth('web')->check())
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth('web')->user()->name }} <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/logout') }}">Log out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            @endif
-        </div>
-    </nav>
+<header id="d-header">
+    <div class="container">
+        <nav>
+            <a href="#">HOME</a>
+            <a href="#">ABOUT US</a>
+            <a href="#">PUBLICATION</a>
+        </nav>
+
+        <a href="#">
+            <img src="{{ asset('images/logo.png') }}" alt="BeeringHoney" />
+        </a>
+
+        <nav>
+            <a href="#">RESEARCH</a>
+            <a href="#">GALLERY</a>
+            <a href="#">CONTACT US</a>
+        </nav>
+    </div>
 </header>

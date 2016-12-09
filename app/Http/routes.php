@@ -60,3 +60,7 @@ Route::auth();
 Route::get('/about-beering', 'DonationsController@aboutBeering');
 Route::get('/about-donation', 'DonationsController@aboutDonation');
 Route::get('/donate', 'DonationsController@donate');
+
+Route::get('/test-paypal', function () {
+    return new App\Paypal();
+});

@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'email', 'phone', 'group_id'
+        'email'
     ];
 
     /**
@@ -30,5 +30,21 @@ class User extends Authenticatable
     public function donations()
     {
         return $this->hasMany('App\Donation');
+    }
+
+    /**
+     * Get the donations for the user.
+     */
+    public function group()
+    {
+        return $this->belongsTo('App\Group');
+    }
+
+    /**
+     * Get the profile record associated with the user.
+     */
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
     }
 }
