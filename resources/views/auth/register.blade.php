@@ -52,6 +52,63 @@
                         </div>
                     </div>
                 </div>
+
+                <hr/>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6{{ $errors->has('country') ? ' has-error' : '' }}">
+                            <label for="country">{{ trans('users.create.country.field') }}</label>
+                            <select class="form-control" id="country" name="country">
+                                @foreach ($data['countries'] as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('country'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('country') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-md-6{{ $errors->has('citizenship') ? ' has-error' : '' }}">
+                            <label for="citizenship">{{ trans('users.create.citizenship.field') }}</label>
+                            <select class="form-control" id="citizenship" name="citizenship">
+                                @foreach ($data['countries'] as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('citizenship'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('citizenship') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6{{ $errors->has('occupation') ? ' has-error' : '' }}">
+                            <label for="occupation">{{ trans('users.create.occupation.field') }}</label>
+                            <input class="form-control" id="occupation" name="occupation" placeholder="{{ trans('users.create.occupation.placeholder') }}" type="text"/>
+                            @if ($errors->has('occupation'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('occupation') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="col-md-6{{ $errors->has('about_you') ? ' has-error' : '' }}">
+                            <label for="about_you">{{ trans('users.create.about_you.field') }}</label>
+                            <input class="form-control" id="about_you" name="about_you" placeholder="{{ trans('users.create.about_you.placeholder') }}" type="text"/>
+                            @if ($errors->has('about_you'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('about_you') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
             </fieldset>
 
             <legend>Your account</legend>
@@ -100,7 +157,7 @@
                     <div class="row">
                         <div class="col-md-6{{ $errors->has('group_id') ? ' has-error' : '' }}">
                             <label for="group_id">{{ trans('users.create.group_id.field') }}</label>
-                            <select class="form-control" id="password" name="group_id">
+                            <select class="form-control" id="group_id" name="group_id">
                                 <option value="1">Opción 1</option>
                                 <option value="2">Opción 2</option>
                                 <option value="3">Opción 3</option>
