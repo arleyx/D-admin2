@@ -30,8 +30,7 @@
                                 <span class="label label-info">{{ $users->group->name }}</span>
                             </td>
                             <td>
-                                <a class="btn btn-xs btn-warning" href="{{ route('admin.'.$app_module->name.'.edit', $users->id) }}"><i class="fa fa-edit"></i> @lang($app_module->name.'.'.$app_action->name.'.action.edit')</a>
-                                <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal-delete" data-url="{{ route('admin.'.$app_module->name.'.destroy', $users->id) }}"><i class="fa fa-remove"></i> @lang($app_module->name.'.'.$app_action->name.'.action.destroy')</a>
+                                <a class="btn btn-xs btn btn-primary" href="{{ route('admin.'.$app_module->name.'.show', $users->id) }}"><i class="fa fa-eye"></i> @lang($app_module->name.'.'.$app_action->name.'.action.show')</a>
                             </td>
                         </tr>
                     @endforeach

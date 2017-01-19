@@ -27,9 +27,7 @@ return [
             'action' => 'Actions',
         ],
         'action' => [
-            'create' => 'Create',
-            'edit' => 'Edit',
-            'destroy' => 'Delete',
+            'show' => 'Show',
         ],
         'pagination' => 'Showing :firstItem to :lastItem of :total entries'
     ],
@@ -50,29 +48,23 @@ return [
         'phone' => ['field' => 'Phone', 'placeholder' => 'Enter Phone'],
         'password' => ['field' => 'Password', 'placeholder' => 'Enter Password'],
         'password_confirmation' => ['field' => 'Confirm Password', 'placeholder' => 'Enter Confirm Password'],
-
-        /*'title' => 'Create',
-        'form' => [
-            'name' => ['field' => 'Name', 'placeholder' => 'Enter Name'],
-            'submit' => 'Submit',
-        ],
-        'table' => [
-            'id' => 'ID',
-            'name' => 'Name',
-            'action' => 'Action',
-        ],*/
     ],
 
-    'edit' => [
-        'title' => 'Edit',
-        'form' => [
-            'name' => ['field' => 'Name', 'placeholder' => 'Enter Name'],
-            'submit' => 'Submit',
-        ],
+    'show' => [
+        'title' => 'Show',
         'table' => [
             'id' => 'ID',
+            'created_at' => 'Created at',
+            'updated_at' => 'Updated at',
             'name' => 'Name',
-            'action' => 'Action',
+            'lastname' => 'Lastname',
+            'email' => 'E-mail',
+            'phone' => 'Phone',
+            'occupation' => 'Occupation',
+            'about_you' => 'About you',
+            'citizenship' => 'Citizenship',
+            'country' => 'Country',
+            'know_us' => 'Know us',
         ],
     ],
 ];

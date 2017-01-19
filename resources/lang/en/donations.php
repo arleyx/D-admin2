@@ -22,6 +22,7 @@ return [
             'id' => 'ID',
             'created_at' => 'Created at',
             'date' => 'Date',
+            'user' => 'User',
             'amount' => 'Amount',
         ],
         'pagination' => 'Showing :firstItem to :lastItem of :total entries'

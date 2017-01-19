@@ -29,6 +29,6 @@ class Profile extends Model
      * Get the administrators for the system.
      */
     public function user () {
-        return $this->belongsTo('App\User');
+        return $this->hasOne('App\User');
     }
 }

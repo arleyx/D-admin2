@@ -14,6 +14,7 @@
                         <th width="50">@lang($app_module->name.'.'.$app_action->name.'.table.id')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.created_at')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.date')</th>
+                        <th>@lang($app_module->name.'.'.$app_action->name.'.table.user')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.amount')</th>
                     </tr>
                 </thead>
@@ -23,7 +24,8 @@
                             <td>{{ $donation->id }}</td>
                             <td>{{ $donation->created_at }}</td>
                             <td>{{ $donation->date }}</td>
-                            <td>{{ $donation->amount }}</td>
+                            <td>{{ $donation->user->profile->name }} {{ $donation->user->profile->lastname }}</td>
+                            <td>${{ number_format($donation->amount, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>

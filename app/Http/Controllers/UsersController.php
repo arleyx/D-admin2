@@ -15,12 +15,11 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('allow:'.$this->controller.',index',  ['only' => ['index']]);
-        $this->middleware('allow:'.$this->controller.',edit',   ['only' => ['edit', 'update']]);
+        $this->middleware('allow:'.$this->controller.',show',   ['only' => ['show']]);
 
         $this->views = [
             'index'  => 'admin.'.$this->controller.'.index',
-            'create' => 'admin.'.$this->controller.'.create',
-            'edit'   => 'admin.'.$this->controller.'.edit',
+            'show' => 'admin.'.$this->controller.'.show',
         ];
     }
 
@@ -58,7 +57,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+
     }
 
     /**
@@ -69,7 +68,14 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        return view($this->views['show'], [
+            'data' => [
+                'profile' => $user->profile,
+                'user' => $user,
+            ],
+        ]);
     }
 
     /**
