@@ -4,11 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Donation;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class DonationsController extends Controller
 {
+    protected $controller = 'donations';
+    protected $views = [];
+
+    public function __construct()
+    {
+        $this->middleware('allow:'.$this->controller.',index',  ['only' => ['index']]);
+
+        $this->views = [
+            'index'  => 'admin.'.$this->controller.'.index',
+        ];
+    }
+
     /**
      * Display button for go option.
      *
@@ -16,11 +29,11 @@ class DonationsController extends Controller
      */
     public function home(Request $request)
     {
-        if (auth('web')->check()) {
-            return redirect('/donate');
-        } else {
+        //if (auth('web')->check()) {
+            //return redirect('/donate');
+        //} else {
             return view('home');
-        }
+        //}
     }
 
     /**
@@ -60,7 +73,13 @@ class DonationsController extends Controller
      */
     public function index()
     {
-        //
+        $donations = Donation::paginate(25);
+
+        return view($this->views['index'], [
+            'data' => [
+                'donations' => $donations,
+            ],
+        ]);
     }
 
     /**

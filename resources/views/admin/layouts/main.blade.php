@@ -38,9 +38,9 @@
                 </section>
             </div>
 
-            <footer class="main-footer">
+            {{--<footer class="main-footer">
                 <strong>Copyright &copy; 2016 <a href="#">DPF Colombia</a>.</strong> All rights reserved.
-            </footer>
+            </footer>--}}
         </div>
 
         <script type="text/javascript" src="{{ asset('libs/jquery/js/jquery-1.12.4.min.js') }}"></script>

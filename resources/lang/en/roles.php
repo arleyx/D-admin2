@@ -20,7 +20,7 @@ return [
         'title' => 'Index',
         'table' => [
             'id' => 'ID',
-            'create_at' => 'Create at',
+            'created_at' => 'Created at',
             'name' => 'Name',
             'module' => 'Modules',
             'action' => 'Action',

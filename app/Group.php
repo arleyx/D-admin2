@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    protected $table = 'groups';
+    //protected $table = 'groups';
 
-    protected $fillable = ['name', 'beering_id'];
+    //protected $fillable = ['name', 'beering_id'];
 
     /**
      * Get the comments for the blog post.
@@ -23,6 +23,6 @@ class Group extends Model
      */
     public function beering()
     {
-        return $this->hasOne('App\Beering');
+        return $this->belongsTo('App\Beering');
     }
 }

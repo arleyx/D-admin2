@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Country;
+use App\Group;
+use App\Profile;
 use Validator;
 use App\Http\Controllers\Controller;
 
@@ -30,7 +33,14 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/donate';
+
+    /**
+     * Where to redirect users after logout.
+     *
+     * @var string
+     */
+    protected $redirectAfterLogout = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -42,20 +52,33 @@ class AuthController extends Controller
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
+    public function showRegistrationForm()
+    {
+        $countries = Country::all();
+        $groups = Group::all();
+
+        return view('auth.register', [
+            'data' => [
+                'countries' => $countries,
+                'groups' => $groups
+            ]
+        ]);
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    /*protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
-    }
+    }*/
 
     /**
      * Handle a registration request for the application.
@@ -65,32 +88,43 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        dd($request->all());
-        /*$validator = $this->validator($request->all());
-
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-
-        Auth::guard($this->getGuard())->login($this->create($request->all()));
-
-        return redirect($this->redirectPath());*/
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        $this->validate($request, [
+            'group_id' => 'required|numeric|exists:groups,id',
+            'know_us' => 'required|min:3',
+            'name' => 'required|min:3',
+            'lastname' => 'required|min:3',
+            'phone' => 'required|min:7|numeric',
+            'country' => 'required|numeric|exists:countries,id',
+            'citizenship' => 'required|numeric|exists:countries,id',
+            'occupation' => 'required|min:3',
+            'about_you' => 'required|min:3',
+            'email' => 'required|unique:users,email|email',
+            'password' => 'required|confirmed|min:8',
         ]);
-    }*/
+
+        $profile = new Profile;
+
+        $profile->know_us = $request->know_us;
+        $profile->name = $request->name;
+        $profile->lastname = $request->lastname;
+        $profile->phone = $request->phone;
+        $profile->country = $request->country;
+        $profile->citizenship = $request->citizenship;
+        $profile->occupation = $request->occupation;
+        $profile->about_you = $request->about_you;
+        $profile->email = $request->email;
+        $profile->save();
+
+        $user = new User;
+
+        $user->profile_id = $profile->id;
+        $user->group_id = $request->group_id;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        \Auth::guard($this->getGuard())->login($user);
+
+        return redirect($this->redirectPath());
+    }
 }

@@ -13,14 +13,14 @@ return [
     |
     */
 
-    'title' => 'Roles',
-    'description' => 'Roles for users',
+    'title' => 'Users',
+    'description' => 'User for the system',
 
     'index' => [
         'title' => 'Index',
         'table' => [
             'id' => 'ID',
-            'create_at' => 'Create at',
+            'created_at' => 'Created at',
             'name' => 'Name',
             'email' => 'E-mail',
             'group' => 'Group',
@@ -35,13 +35,22 @@ return [
     ],
 
     'create' => [
+        'group_id' => ['field' => 'Group', 'placeholder' => 'Select Group'],
+        'know_us' => ['field' => 'Know us', 'placeholder' => 'Enter Know us'],
+
         'name' => ['field' => 'Name', 'placeholder' => 'Enter Name'],
         'lastname' => ['field' => 'Last Name', 'placeholder' => 'Enter Last Name'],
+
+        'country' => ['field' => 'Country', 'placeholder' => 'Select Country'],
+        'citizenship' => ['field' => 'Citizenship', 'placeholder' => 'Select Citizenship'],
+        'occupation' => ['field' => 'Occupation', 'placeholder' => 'Enter Occupation'],
+        'about_you' => ['field' => 'About you', 'placeholder' => 'Enter About you'],
+
         'email' => ['field' => 'Email', 'placeholder' => 'Enter Email'],
         'phone' => ['field' => 'Phone', 'placeholder' => 'Enter Phone'],
         'password' => ['field' => 'Password', 'placeholder' => 'Enter Password'],
         'password_confirmation' => ['field' => 'Confirm Password', 'placeholder' => 'Enter Confirm Password'],
-        'group_id' => ['field' => 'Group', 'placeholder' => 'Select Group'],
+
         /*'title' => 'Create',
         'form' => [
             'name' => ['field' => 'Name', 'placeholder' => 'Enter Name'],

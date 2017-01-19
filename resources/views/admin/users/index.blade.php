@@ -3,8 +3,6 @@
 @section('title', trans($app_module->name.'.title'))
 
 @section('content')
-    <a class="btn btn-success" href="{{ route('admin.'.$app_module->name.'.create') }}"><i class="fa fa-plus-circle"></i> @lang($app_module->name.'.'.$app_action->name.'.action.create')</a>
-    <p>&nbsp;</p>
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">@lang($app_module->name.'.'.$app_action->name.'.title')</h3>
@@ -14,7 +12,7 @@
                 <thead>
                     <tr>
                         <th width="50">@lang($app_module->name.'.'.$app_action->name.'.table.id')</th>
-                        <th>@lang($app_module->name.'.'.$app_action->name.'.table.create_at')</th>
+                        <th>@lang($app_module->name.'.'.$app_action->name.'.table.created_at')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.name')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.email')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.group')</th>

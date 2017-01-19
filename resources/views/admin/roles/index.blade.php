@@ -14,7 +14,7 @@
                 <thead>
                     <tr>
                         <th width="50">@lang($app_module->name.'.'.$app_action->name.'.table.id')</th>
-                        <th>@lang($app_module->name.'.'.$app_action->name.'.table.create_at')</th>
+                        <th>@lang($app_module->name.'.'.$app_action->name.'.table.created_at')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.name')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.module')</th>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.action')</th>

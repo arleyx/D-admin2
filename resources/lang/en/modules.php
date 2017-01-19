@@ -16,6 +16,8 @@ return [
     'dashboard' => 'Dashboard',
     'administrators' => 'Administrators',
     'roles' => 'Roles',
-
     'users' => 'Users',
+    'groups' => 'Groups',
+    'beerings' => 'Beerings',
+    'donations' => 'Donations',
 ];

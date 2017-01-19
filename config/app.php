@@ -156,6 +156,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Filemanager Service Providers...
+         */
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -202,6 +208,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Filemanager aliases...
+         */
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
