@@ -17,3 +17,17 @@
         </nav>
     </div>
 </header>
+
+
+<section id="d-user" class="container">
+    <nav class="pull-left">
+        <a href="{{ url('/') }}">Home</a>
+    </nav>
+    @if (Auth::guard('web')->check())
+        <nav class="pull-right">
+            Welcome, <strong>{{ Auth::user()->profile->name }} {{ Auth::user()->profile->lastname }}</strong> |
+            <a href="{{ url('/logout') }}">Sign out</a>
+        </nav>
+    @endif
+    <div class="clearfix"></div>
+</section>

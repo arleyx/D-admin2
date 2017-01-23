@@ -6,7 +6,7 @@
             @foreach ($app_modules as $module)
                 <li {{ $app_module->id == $module->id ? 'class=active' : '' }}>
                     <a href="{{ route('admin.'.$module->name.'.index') }}">
-                        <i class="fa fa-toggle-{{ $app_module->id == $module->id ? 'on' : 'off' }}"></i><span>@lang('modules.'.$module->name)</span>
+                        <i class="fa fa-{{ $module->icon }}"></i><span>@lang('modules.'.$module->name)</span>
                     </a>
                 </li>
             @endforeach

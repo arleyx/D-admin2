@@ -19,7 +19,7 @@ class Allow
      */
     public function handle($request, Closure $next, $module_name = '', $action_name = '')
     {
-        if (($module_name === 'init' || $module_name === 'file') && $action_name === 'show') {
+        if ($module_name === 'init' && $action_name === 'show') {
             $module = new Module;
             $module->id = 0;
             $module->name = 'init';

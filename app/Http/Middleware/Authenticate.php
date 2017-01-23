@@ -30,7 +30,7 @@ class Authenticate
             $modules = Auth::guard($guard)
                             ->user()
                             ->role()->getResults()
-                            ->modules();
+                            ->modules()->sortBy('position');
 
             view()->share('app_modules', $modules);
         }

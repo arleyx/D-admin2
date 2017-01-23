@@ -8,6 +8,7 @@
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"/>
         <link rel="stylesheet" href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}" media="screen" charset="utf-8"/>
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" media="screen" charset="utf-8"/>
+        @stack('links')
     </head>
     <body>
         @include('layouts.header')
@@ -18,4 +19,5 @@
     </body>
     <script type="text/javascript" src="{{ asset('libs/jquery/js/jquery-1.12.4.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('libs/bootstrap/js/bootstrap.min.js') }}"></script>
+    @stack('scripts')
 </html>

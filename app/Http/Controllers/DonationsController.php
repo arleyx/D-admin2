@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Group;
 use App\Donation;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -18,6 +19,7 @@ class DonationsController extends Controller
         $this->middleware('allow:'.$this->controller.',index',  ['only' => ['index']]);
 
         $this->views = [
+            'home'  => 'home',
             'index'  => 'admin.'.$this->controller.'.index',
         ];
     }
@@ -29,10 +31,16 @@ class DonationsController extends Controller
      */
     public function home(Request $request)
     {
+        $groups = Group::all();
+
         //if (auth('web')->check()) {
             //return redirect('/donate');
         //} else {
-            return view('home');
+            return view($this->views['home'], [
+                'data' => [
+                    'groups' => $groups,
+                ],
+            ]);
         //}
     }
 
