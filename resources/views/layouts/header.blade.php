@@ -26,6 +26,7 @@
     @if (Auth::guard('web')->check())
         <nav class="pull-right">
             Welcome, <strong>{{ Auth::user()->profile->name }} {{ Auth::user()->profile->lastname }}</strong> |
+            <a href="{{ url('/my-profile') }}">My profile</a> |
             <a href="{{ url('/logout') }}">Sign out</a>
         </nav>
     @endif

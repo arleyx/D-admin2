@@ -1,3 +1,9 @@
+{{-- dd($data['user']->group) --}}
+
+{{-- $data['user']->profile->citizenship()->first() --}}
+
+{{-- dd('hola') --}}
+
 @extends('layouts.main')
 
 @section('title', 'Register')
@@ -5,13 +11,26 @@
 @section('content')
 
     <div class="container">
-        <h1 class="text-center">Register</h1>
+        <h1 class="text-center">My profile</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
         <p>&nbsp;</p>
+
+        @if (session('alert.success'))
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> @lang('alert.success.title')</h4>
+                <ul>
+                    @foreach (session('alert.success')->all() as $status)
+                        <li>{{ $status }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <p>&nbsp;</p>
 
-        <form action="{{ url('/register') }}" role="form" method="POST">
+        <form action="{{ url('/update') }}" role="form" method="POST">
             {!! csrf_field() !!}
 
             <legend>Beering</legend>
@@ -22,28 +41,28 @@
                             <label for="group_id">{{ trans('users.create.group_id.field') }}</label>
 
                             <div class="panel-group" id="accordion">
-                                @foreach ($data['groups'] as $key => $group)
+
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                <input type="radio" name="group_id" value="{{ $group->id }}"/>
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ $group->id }}">{{ $group->name }}</a>
+                                                <input type="radio" name="group_id" value="{{ $data['user']->group->id }}" checked="true"/>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ $data['user']->group->id }}">{{ $data['user']->group->name }}</a>
                                             </h4>
                                         </div>
-                                        <div id="collapse-{{ $group->id }}" class="panel-collapse collapse {{ $key == 0 ? 'in' : '' }}">
+                                        <div id="collapse-{{ $data['user']->group->id }}" class="panel-collapse collapse in">
                                             <div class="panel-body">
-                                                {!! $group->about !!}
+                                                {!! $data['user']->group->about !!}
                                                 <div class="clearfix"></div>
                                                 <hr/>
-                                                {!! $group->beering->description !!}
+                                                {!! $data['user']->group->beering->description !!}
                                                 <div class="clearfix"></div>
                                                 <hr/>
-                                                {!! $group->record !!}
+                                                {!! $data['user']->group->record !!}
                                                 <div class="clearfix"></div>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+
                             </div>
 
                             @if ($errors->has('group_id'))
@@ -59,7 +78,7 @@
                     <div class="row">
                         <div class="col-md-12{{ $errors->has('know_us') ? ' has-error' : '' }}">
                             <label for="know_us">{{ trans('users.create.know_us.field') }}</label>
-                            <textarea class="form-control" id="know_us" name="know_us" placeholder="{{ trans('users.create.know_us.placeholder') }}" rows="3">{{ old('know_us') }}</textarea>
+                            <textarea class="form-control" id="know_us" name="know_us" placeholder="{{ trans('users.create.know_us.placeholder') }}" rows="3">{{ $data['user']->profile->know_us }}</textarea>
                             @if ($errors->has('know_us'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('know_us') }}</strong>
@@ -76,7 +95,7 @@
                     <div class="row">
                         <div class="col-md-6{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name">{{ trans('users.create.name.field') }}</label>
-                            <input class="form-control" id="name" name="name" placeholder="{{ trans('users.create.name.placeholder') }}" type="text" value="{{ old('name') }}"/>
+                            <input class="form-control" id="name" name="name" placeholder="{{ trans('users.create.name.placeholder') }}" type="text" value="{{ $data['user']->profile->name }}"/>
                             @if ($errors->has('name'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
@@ -85,7 +104,7 @@
                         </div>
                         <div class="col-md-6{{ $errors->has('lastname') ? ' has-error' : '' }}">
                             <label for="lastname">{{ trans('users.create.lastname.field') }}</label>
-                            <input class="form-control" id="lastname" name="lastname" placeholder="{{ trans('users.create.lastname.placeholder') }}" type="text" value="{{ old('lastname') }}"/>
+                            <input class="form-control" id="lastname" name="lastname" placeholder="{{ trans('users.create.lastname.placeholder') }}" type="text" value="{{ $data['user']->profile->lastname }}"/>
                             @if ($errors->has('lastname'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('lastname') }}</strong>
@@ -99,7 +118,7 @@
                     <div class="row">
                         <div class="col-md-6{{ $errors->has('phone') ? ' has-error' : '' }}">
                             <label for="phone">{{ trans('users.create.phone.field') }}</label>
-                            <input class="form-control" id="phone" name="phone" placeholder="{{ trans('users.create.phone.placeholder') }}" type="tel" value="{{ old('phone') }}"/>
+                            <input class="form-control" id="phone" name="phone" placeholder="{{ trans('users.create.phone.placeholder') }}" type="tel" value="{{ $data['user']->profile->phone }}"/>
                             @if ($errors->has('phone'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('phone') }}</strong>
@@ -117,7 +136,7 @@
                             <label for="country">{{ trans('users.create.country.field') }}</label>
                             <select class="form-control" id="country" name="country">
                                 @foreach ($data['countries'] as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}" {{ $country->id == $data['user']->profile->country()->id ? 'selected' : '' }}>{{ $country->name }}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('country'))
@@ -130,7 +149,7 @@
                             <label for="citizenship">{{ trans('users.create.citizenship.field') }}</label>
                             <select class="form-control" id="citizenship" name="citizenship">
                                 @foreach ($data['countries'] as $country)
-                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    <option value="{{ $country->id }}" {{ $country->id == $data['user']->profile->citizenship()->id ? 'selected' : '' }}>{{ $country->name }}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('citizenship'))
@@ -146,7 +165,7 @@
                     <div class="row">
                         <div class="col-md-6{{ $errors->has('occupation') ? ' has-error' : '' }}">
                             <label for="occupation">{{ trans('users.create.occupation.field') }}</label>
-                            <input class="form-control" id="occupation" name="occupation" placeholder="{{ trans('users.create.occupation.placeholder') }}" type="text" value="{{ old('occupation') }}"/>
+                            <input class="form-control" id="occupation" name="occupation" placeholder="{{ trans('users.create.occupation.placeholder') }}" type="text" value="{{ $data['user']->profile->occupation }}"/>
                             @if ($errors->has('occupation'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('occupation') }}</strong>
@@ -160,7 +179,7 @@
                     <div class="row">
                         <div class="col-md-6{{ $errors->has('about_you') ? ' has-error' : '' }}">
                             <label for="about_you">{{ trans('users.create.about_you.field') }}</label>
-                            <textarea class="form-control" id="about_you" name="about_you" placeholder="{{ trans('users.create.about_you.placeholder') }}" rows="5">{{ old('about_you') }}</textarea>
+                            <textarea class="form-control" id="about_you" name="about_you" placeholder="{{ trans('users.create.about_you.placeholder') }}" rows="5">{{ $data['user']->profile->about_you }}</textarea>
                             @if ($errors->has('about_you'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('about_you') }}</strong>
@@ -177,7 +196,7 @@
                     <div class="row">
                         <div class="col-md-6{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email">{{ trans('users.create.email.field') }}</label>
-                            <input class="form-control" id="email" name="email" placeholder="{{ trans('users.create.email.placeholder') }}" type="email" value="{{ old('email') }}"/>
+                            <input class="form-control" id="email" name="email" placeholder="{{ trans('users.create.email.placeholder') }}" type="email" value="{{ $data['user']->profile->email }}" disabled/>
                             @if ($errors->has('email'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -208,6 +227,8 @@
                             @endif
                         </div>
                     </div>
+                    <p>&nbsp;</p>
+                    <div class="alert alert-warning" role="alert"><strong>Warning!</strong> If you fill in these fields, your account information will be updated.</div>
                 </div>
             </fieldset>
 

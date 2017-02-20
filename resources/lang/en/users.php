@@ -65,6 +65,8 @@ return [
             'citizenship' => 'Citizenship',
             'country' => 'Country',
             'know_us' => 'Know us',
+            'group' => 'Group',
+            'beering' => 'Beering',
         ],
     ],
 ];

@@ -28,6 +28,20 @@ class Profile extends Model
     /**
      * Get the administrators for the system.
      */
+    public function citizenship () {
+        return $this->hasOne('App\Country', 'id', 'citizenship')->first();
+    }
+
+    /**
+     * Get the administrators for the system.
+     */
+    public function country () {
+        return $this->hasOne('App\Country', 'id', 'country')->first();
+    }
+
+    /**
+     * Get the administrators for the system.
+     */
     public function user () {
         return $this->hasOne('App\User');
     }

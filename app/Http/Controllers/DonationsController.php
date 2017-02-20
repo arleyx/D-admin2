@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Group;
+use App\Beering;
 use App\Donation;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -31,17 +31,13 @@ class DonationsController extends Controller
      */
     public function home(Request $request)
     {
-        $groups = Group::all();
+        $beerings = Beering::all();
 
-        //if (auth('web')->check()) {
-            //return redirect('/donate');
-        //} else {
-            return view($this->views['home'], [
-                'data' => [
-                    'groups' => $groups,
-                ],
-            ]);
-        //}
+        return view($this->views['home'], [
+            'data' => [
+                'beerings' => $beerings,
+            ],
+        ]);
     }
 
     /**

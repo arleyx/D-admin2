@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.6.6
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 19-01-2017 a las 04:36:24
--- Versión del servidor: 10.1.20-MariaDB
--- Versión de PHP: 7.1.1
+-- Tiempo de generación: 20-02-2017 a las 01:45:22
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 7.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -66,7 +66,7 @@ CREATE TABLE `administrators` (
 --
 
 INSERT INTO `administrators` (`id`, `name`, `email`, `password`, `role_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Administrator', 'admin@dpfcolombia.com', '$2y$10$FKfXH8WHibji6KMEbcc6W.Yhgx6hbwjzrQx.sk5UE/mx6yszE8JR.', 1, 'THLF1VovYVf5evJfs2whnz9ZfldhUAeJtsNx2ytLl88GxrRVLTtvyVg1zBhQ', NULL, '2017-01-11 08:02:38');
+(1, 'Administrator', 'admin@beeringhoney.com', '$2y$10$FKfXH8WHibji6KMEbcc6W.Yhgx6hbwjzrQx.sk5UE/mx6yszE8JR.', 1, 'kFiA9gWgwChahrlfDTfzwZDg65WSLcyemQUbyscW8JAuGgRp3LrTHfvcbFGZ', NULL, '2017-02-20 04:20:26');
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,8 @@ CREATE TABLE `beerings` (
 --
 
 INSERT INTO `beerings` (`id`, `title`, `objective`, `description`, `amount`, `created_at`, `updated_at`) VALUES
-(2, 'Beering 1', '<p>Objetivo&nbsp;Beering 1</p>', '<p>Descripci&oacute;n Beering 1</p>', '300000', '2017-01-17 06:27:30', '2017-01-17 06:27:30');
+(2, 'Beering 1', '<p>Objetivo&nbsp;Beering 1</p>', '<p><img style=\"float: left;\" src=\"http://beeringhoney.com/images/oct-nov2007-2520086.jpg?crc=258553730\" alt=\"\" width=\"270\" height=\"203\" />&nbsp; &nbsp; &nbsp; Descripci&oacute;n Beering 1</p>', '300000', '2017-01-17 06:27:30', '2017-01-24 05:42:48'),
+(3, 'Beering 2', '<p>Objetivo del beering 2</p>', '<p>Descripci&oacute;n del beering 2</p>', '150000', '2017-02-01 09:08:14', '2017-02-01 09:08:14');
 
 -- --------------------------------------------------------
 
@@ -375,7 +376,9 @@ CREATE TABLE `donations` (
 
 INSERT INTO `donations` (`id`, `date`, `amount`, `user_id`, `created_at`, `updated_at`) VALUES
 (1, '2017-01-18 00:00:00', '20', 1, '2017-01-18 05:00:00', '2017-01-18 05:00:00'),
-(2, '2017-01-16 00:00:00', '50', 1, '2017-01-16 05:00:00', '2017-01-16 05:00:00');
+(2, '2017-01-16 00:00:00', '50', 1, '2017-01-16 05:00:00', '2017-01-16 05:00:00'),
+(3, '2017-02-15 00:00:00', '100', 1, NULL, NULL),
+(4, '2017-03-20 00:00:00', '90', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -442,6 +445,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 CREATE TABLE `modules` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `icon` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `position` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -450,13 +455,13 @@ CREATE TABLE `modules` (
 -- Volcado de datos para la tabla `modules`
 --
 
-INSERT INTO `modules` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'administrators', NULL, NULL),
-(2, 'roles', NULL, NULL),
-(3, 'users', NULL, NULL),
-(4, 'groups', NULL, NULL),
-(5, 'beerings', NULL, NULL),
-(6, 'donations', NULL, NULL);
+INSERT INTO `modules` (`id`, `name`, `icon`, `position`, `created_at`, `updated_at`) VALUES
+(1, 'administrators', 'user-secret', 99, NULL, NULL),
+(2, 'roles', 'list', 100, NULL, NULL),
+(3, 'users', 'user', 0, NULL, NULL),
+(4, 'groups', 'users', 0, NULL, NULL),
+(5, 'beerings', 'heart', 0, NULL, NULL),
+(6, 'donations', 'money', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -514,7 +519,8 @@ INSERT INTO `permissions` (`id`, `action_id`, `module_id`, `created_at`, `update
 (23, 3, 5, NULL, NULL),
 (24, 4, 5, NULL, NULL),
 (25, 5, 5, NULL, NULL),
-(26, 1, 6, NULL, NULL);
+(26, 1, 6, NULL, NULL),
+(27, 3, 6, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -557,7 +563,8 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (23, 1),
 (24, 1),
 (25, 1),
-(26, 1);
+(26, 1),
+(27, 1);
 
 -- --------------------------------------------------------
 
@@ -585,7 +592,9 @@ CREATE TABLE `profiles` (
 --
 
 INSERT INTO `profiles` (`id`, `name`, `lastname`, `email`, `phone`, `occupation`, `about_you`, `citizenship`, `country`, `know_us`, `created_at`, `updated_at`) VALUES
-(1, 'Fabian', 'Archila', 'arley_1301@hotmail.com', '3153237079', 'Ingeniero de sistemas', 'Yo soy yo.', 1, 1, 'Por medio de la página web', '2017-01-18 09:01:45', '2017-01-18 09:01:45');
+(1, 'Fabian', 'Archila', 'arley_1301@hotmail.com', '3153237079', 'Ingeniero de sistemas', 'Yo soy yo.', 1, 1, 'Por medio de la página web', '2017-01-18 09:01:45', '2017-01-18 09:01:45'),
+(2, 'Juan Manuel', 'Perez Sanchez', 'juan.perez@micorreo.com', '3164647746', 'Policia', 'Acerca de mi.', 236, 47, 'Como los conocí.', '2017-02-20 04:20:07', '2017-02-20 04:38:03'),
+(5, 'Fabian', 'Archila', 'arleyarchilaherreno@gmail.com', '3283774664', 'Entrenador personal', 'Algo acerca de mi.', 1, 1, 'Así los conocí.', '2017-02-20 06:33:50', '2017-02-20 06:33:50');
 
 -- --------------------------------------------------------
 
@@ -629,7 +638,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `group_id`, `profile_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'arley_1301@hotmail.com', '$2y$10$xQ2uvjcODJCsDNW1CFjxZ.VfUAyNn2/jHQA2nuyr4lXXYUs5rFFcG', 3, 1, 'UPzfVqYEeQC2V5NrYZYHQM4ze5WlvIjxgcOF5B4cI2KvDdJC6zwtIeERWYjg', '2017-01-18 09:01:45', '2017-01-18 09:05:48');
+(1, 'arley_1301@hotmail.com', '$2y$10$xQ2uvjcODJCsDNW1CFjxZ.VfUAyNn2/jHQA2nuyr4lXXYUs5rFFcG', 3, 1, 'NHvEK9rgzhgi5qhK7hhSv2NhWQ1RhjLcpdF1MA2b4DYw6R6rGtqlp9sxQsS7', '2017-01-18 09:01:45', '2017-02-20 04:18:34'),
+(2, 'juan.perez@micorreo.com', '$2y$10$7bMgI4/Bvnuhwz37EVKd7Ol9tOwE04mdo7bNNda/ORvGCa9tzSPA2', 2, 2, 'E7JVy3TozjY4fxXw2DJmVexwQWpUFngHe67QeD6yg2tym6mYZ9hgoi95mPIL', '2017-02-20 04:20:07', '2017-02-20 06:26:57'),
+(5, 'arleyarchilaherreno@gmail.com', '$2y$10$BPPE7hN4d5gmI/eSeTvcbO.555Ei1vhPC6uODfT0Ge/tb6ddz4Cga', 2, 5, NULL, '2017-02-20 06:33:51', '2017-02-20 06:33:51');
 
 --
 -- Índices para tablas volcadas
@@ -745,7 +756,7 @@ ALTER TABLE `administrators`
 -- AUTO_INCREMENT de la tabla `beerings`
 --
 ALTER TABLE `beerings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `countries`
 --
@@ -755,7 +766,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT de la tabla `donations`
 --
 ALTER TABLE `donations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `groups`
 --
@@ -770,12 +781,12 @@ ALTER TABLE `modules`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT de la tabla `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
@@ -785,7 +796,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Restricciones para tablas volcadas
 --

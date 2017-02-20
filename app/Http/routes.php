@@ -30,7 +30,7 @@ Route::get('admin/logout', 'AdministratorsController@logout');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrators'], function () {
     Route::get('', function () {
-        return redirect('admin/login');
+        return Auth::guard('administrators')->check() ? redirect('admin/init') : redirect('admin/login');
     });
 
     Route::get('init', 'InitController@init');
@@ -125,6 +125,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrators'], funct
 
 Route::auth();
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/my-profile', 'Auth\AuthController@showProfile');
+    Route::post('/update', 'Auth\AuthController@update');
+});
 
 /*
  |--------------------------------------------------------------------------

@@ -49,15 +49,24 @@
                     </tr>
                     <tr>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.citizenship')</th>
-                        <td>{{ $data['profile']->citizenship }}</td>
+                        <td>{{ $data['profile']->citizenship()->name }}</td>
                     </tr>
                     <tr>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.country')</th>
-                        <td>{{ $data['profile']->country }}</td>
+                        <td>{{ $data['profile']->country()->name }}</td>
                     </tr>
                     <tr>
                         <th>@lang($app_module->name.'.'.$app_action->name.'.table.know_us')</th>
                         <td>{{ $data['profile']->know_us }}</td>
+                    </tr>
+
+                    <tr>
+                        <th class="warning">@lang($app_module->name.'.'.$app_action->name.'.table.group')</th>
+                        <td class="warning">{{ $data['user']->group->name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="warning">@lang($app_module->name.'.'.$app_action->name.'.table.beering')</th>
+                        <td class="warning">{{ $data['user']->group->beering->title }}</td>
                     </tr>
                 </tbody>
             </table>
